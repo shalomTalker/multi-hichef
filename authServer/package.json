@@ -2,11 +2,10 @@
   "name": "hichef",
   "version": "0.0.0",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "NODE_ENV=production&&node ./bin/www",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
-    "@sendgrid/mail": "^6.4.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
@@ -24,8 +23,7 @@
     "passport-facebook-token": "^3.3.0",
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "sendgrid": "^5.2.3"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

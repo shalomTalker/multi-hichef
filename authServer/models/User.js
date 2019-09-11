@@ -4,8 +4,6 @@ const { Schema } = mongoose;
 const Mailer = require('../services/Mailer')
 const verifyTemplate = require('../services/emailTemplates/verifyTemplate');
 const keys = require('../config/keys');
-const nodemailer = require('nodemailer');
-const sgMail = require('@sendgrid/mail');
 // Create a schema
 const userSchema = new Schema({
     methods: {

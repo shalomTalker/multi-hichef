@@ -16,10 +16,12 @@ signToken = user => {
 
 module.exports = {
     signUp: async (req, res, next) => {
+        console.log(process.env);
         const { email, password,name } = req.value.body;
-
+console.log(email);
         // Check if there is a user with the same email
         let foundUser = await User.findOne({ "local.email": email });
+        console.log(foundUser);
         if (foundUser) {
             return res.status(403).json({ error: 'Email is already in use' });
         }
@@ -97,8 +99,8 @@ module.exports = {
     confirmation: async (req,res,done)=>{
          // Find a matching token
         try{
-        const foundToken = await Token.findOne({ token: req.params.token })
-        if (!foundToken) return res.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
+            const foundToken = await Token.findOne({ token: req.params.token })
+            if (!foundToken) return res.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
  
         // If we found a token, find a matching user
         const foundUser = await User.findOne({ _id: foundToken._userId }) 
