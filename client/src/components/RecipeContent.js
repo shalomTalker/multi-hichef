@@ -6,6 +6,7 @@ const RecipeContent = ({ name, ingredients, level, preparingTime, directions }) 
             <h2>{name}</h2>
             <span style={{ fontSize: '2.5rem', margin: '2rem' }}>Ingredients</span> <span>Servings: 4</span>
             <ul>
+                
                 {
                     ingredients.map((ingredient, i) => (
                         <li>{ingredient}</li>
