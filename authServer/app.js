@@ -16,7 +16,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 // mongoose.connect(mongoURI, { /* useNewUrlParser: true, */ useUnifiedTopology: true});
 // debug('DB is connected');
-// console.log(process.env.NODE_ENV);
+console.log(process.envmongo);
 
 app.use(
   cors({
