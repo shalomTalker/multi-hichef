@@ -1,0 +1,154 @@
+{
+    "recipes": [
+        {
+            "name": "BEEF & BROCCOLI STIR-FRY",
+            "ingredients": [
+                "round steak ",
+                "corn starch ",
+                "garlic powder ",
+                "broccoli ",
+                "onion ",
+                "soy sauce/tamari sauce ",
+                "ground ginger ",
+                "rice "
+            ],
+            "level": "easy",
+            "preparingTime": 25,
+            "directions": "Preheat oven to 350° and grease a 9'-x-13' baking pan with cooking spray. In a large bowl mix together rice, soups, water, and oregano then pour into baking dish. Season chicken with salt and pepper then place on top of rice mixture. Sprinkle onion soup mix over chicken then cover with aluminum foil and bake 1 hour and 15minutes, or until chicken is cooked through and rice is tender. Garnish with parsley before serving. "
+        }
+    ],
+    "routes": {
+        "quest": [
+            {
+                "badge": 1,
+                "path": "/favorite-cousine",
+                "title": "Favorite Cousine",
+                "subTitle": "Your Recipe is just 3 steps away. Get started now, choose your favorite cuisine",
+                "btns": [
+                    {
+                        "text": "American",
+                        "src": "main-ingrident"
+                    },
+                    {
+                        "text": "Italian",
+                        "src": "main-ingrident"
+                    },
+                    {
+                        "text": "Asian",
+                        "src": "main-ingrident"
+                    },
+                    {
+                        "text": "Mexican",
+                        "src": "main-ingrident"
+                    },
+                    {
+                        "text": "Chinese",
+                        "src": "main-ingrident"
+                    },
+                    {
+                        "text": "Kid Friendlly",
+                        "src": "main-ingrident"
+                    }
+                ],
+                "checkboxes": []
+            },
+            {
+                "badge": 2,
+                "path": "/main-ingrident",
+                "title": "Main Ingrident",
+                "subTitle": null,
+                "btns": [
+                    {
+                        "text": "Chiken",
+                        "src": "big-no-no"
+                    },
+                    {
+                        "text": "Meat",
+                        "src": "big-no-no"
+                    },
+                    {
+                        "text": "Fish",
+                        "src": "big-no-no"
+                    },
+                    {
+                        "text": "Vegetarian",
+                        "src": "big-no-no"
+                    }
+                ],
+                "checkboxes": []
+            },
+            {
+                "badge": 3,
+                "path": "/big-no-no",
+                "title": "Big No No",
+                "subTitle": null,
+                "btns": [
+                    {
+                        "text": "CONTINUE",
+                        "src": "our-recipe-recommendation"
+                    }
+                ],
+                "checkboxes": [
+                    "Marzipan",
+                    "Oysters",
+                    "Brusless Sprouts",
+                    "Crustacean Shelfish",
+                    "Soybeans",
+                    "Blue Cheesa",
+                    "Mushrooms"
+                ]
+            }
+        ],
+        "index": [
+            {
+                "path": "/",
+                "title": "Finding a Recipe Has Never Been So Fast",
+                "subTitle": "it`s literally a minute away",
+                "btns": [
+                    {
+                        "text": "START",
+                        "src": "favorite-cousine"
+                    }
+                ],
+                "checkboxes": []
+            }
+        ],
+        "result": {
+            "path": "/our-recipe-recommendation",
+            "title": "Our Recipe Recommendation",
+            "subTitle": null,
+            "recommendbtns": [
+                {
+                    "text": "Get Directions",
+                    "src": null
+                },
+                {
+                    "text": "Another recipe",
+                    "src": "/fine-tuning"
+                }
+            ],
+            "recipebtns": [
+                {
+                    "text": "Get Directions",
+                    "src": null
+                },
+                {
+                    "text": "Another recipe",
+                    "src": "/fine-tuning"
+                }
+            ]
+        },
+        "another": {
+            "path": "/fine-tuning",
+            "title": "Yes we can!",
+            "subTitle": "Just a little fine tuning.",
+            "btns": [],
+            "checkboxes":[
+                "I want to change\\delete some of the ingredients",
+                "I want something completely different",
+                "It takes too much time to prepare"
+
+            ]
+        }
+    }
+}

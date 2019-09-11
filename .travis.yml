@@ -1,0 +1,32 @@
+language: generic
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t dockenigma/multi-docker -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true dockenigma/multi-docker npm run test 
+after_success: 
+  - docker build -t dockenigma/multi-client:latest ./client
+  - docker build -t dockenigma/multi-nginx:latest ./nginx
+  - docker build -t dockenigma/multi-server:latest ./authServer
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push dockenigma/multi-client:latest
+  - docker push dockenigma/multi-nginx:latest
+  - docker push dockenigma/multi-server:latest
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "hichef"
+  env:  "Hichef-dev-env"
+  bucket_name: "elasticbeanstalk-us-east-1-250232526316"
+  bucket_path : "hichef"
+  on:
+    branch: master
+  access_key_id: 
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+
+  
