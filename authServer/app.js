@@ -14,10 +14,7 @@ const authRouter = require('./routes/authRouter');
 
 const app = express();
 mongoose.Promise = global.Promise;
-mongoose.connect(mongoURI, { for (let index = 0; index < array.length; index++) {
-  const element = array[index];
-  
-}/* useNewUrlParser: true, */ useUnifiedTopology: true});
+mongoose.connect(mongoURI, { /* useNewUrlParser: true, */ useUnifiedTopology: true});
 debug('DB is connected');
 console.log(process.env);
 
