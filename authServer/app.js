@@ -16,15 +16,14 @@ const app = express();
 // mongoose.Promise = global.Promise;
 // mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true});
 // debug('DB is connected');
-console.log(process.env);
 
-// app.use(
-//   cors({
+app.use(
+  cors({
     
-//     origin: "http://localhost:3000",
-//     credentials: true
-//   })
-// );
+    origin: "http://localhost:3000",
+    credentials: true
+  })
+);
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.json());
