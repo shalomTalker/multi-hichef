@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div className="container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <Header></Header>
-        <div style={{ overflowY: 'auto' }} className="row">{this.props.children}</div>
+        <div style={{ overflowY: 'auto' }} className="row justify-content-center">{this.props.children}</div>
         <Footer></Footer>
       </div>
 

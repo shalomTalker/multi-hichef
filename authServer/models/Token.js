@@ -9,7 +9,7 @@ const tokenSchema = new Schema({
 });
 
 // Create a model
-const Token = mongoose.model('token', tokenSchema);
+const Token = mongoose.model('tokens', tokenSchema);
 
 // Export the model
 module.exports = Token;

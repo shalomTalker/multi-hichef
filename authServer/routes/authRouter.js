@@ -1,7 +1,7 @@
 const express = require('express');
 const router = require('express-promise-router')();
 const passport = require('passport');
-const passportConf = require('../services/passport');
+// const passportConf = require('../services/passport');
 
 const { validateBody, schemas } = require('../helpers/routeHelpers');
 const UsersController = require('../controllers/authController');
@@ -9,16 +9,16 @@ const passportSignIn = passport.authenticate('local', { session: false });
 const passportJWT = passport.authenticate('jwt', { session: false });
 
 router.route('/signup')
-.post(validateBody(schemas.authSchema), UsersController.signUp);
+  .post(validateBody(schemas.signupSchema), UsersController.signUp);
 
 router.route('/signin')
-.post(validateBody(schemas.authSchema), passportSignIn, UsersController.signIn);
+  .post(validateBody(schemas.signinSchema), passportSignIn, UsersController.signIn);
 
 router.route('/confirmation/:token')
   .get(UsersController.confirmation);
 
 router.route('/resend')
-  .get(UsersController.resendToken);
+  .post(passportJWT,UsersController.resendToken);
 
 router.route('/google')
   .post(passport.authenticate('googleToken', { session: false }), UsersController.googleOAuth);
@@ -46,7 +46,5 @@ router.route('/status')
 
 router.route('/signout')
   .get(passportJWT, UsersController.signOut);
-
-
-
+  
 module.exports = router;

@@ -40,8 +40,26 @@ class SignUp extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div className="row">
-        <div className="col">
+      <div className="col-8">
+          <div className="text-center">
+
+            <FacebookLogin
+              appId="357227691853030"
+              render={renderProps => (
+                <button style={{ marginRight: 15 }} className="col btn btn-primary" onClick={renderProps.onClick}>Facebook</button>
+              )}
+              fields="name,email,picture"
+              callback={this.responseFacebook}
+            />
+            <GoogleLogin
+              clientId="211745097439-8b8fuh65gi3gdce8012prv50l61gm82a.apps.googleusercontent.com"
+              render={renderProps => (
+                <button className="col btn btn-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}>Google</button>
+              )}
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
+          </div>
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <fieldset>
               <Field
@@ -61,6 +79,14 @@ class SignUp extends Component {
                 placeholder="yoursuperpassword"
                 component={ CustomInput } />
             </fieldset>
+            <fieldset>
+              <Field
+                name="name"
+                type="text"
+                id="name"
+                label="Enter your name"
+                component={CustomInput} />
+            </fieldset>
 
             { this.props.errorMessage ? 
             <div className="alert alert-danger">
@@ -69,32 +95,7 @@ class SignUp extends Component {
 
             <button type="submit" className="btn btn-primary">Sign Up</button>
           </form>
-        </div>
-        <div className="col">
-          <div className="text-center">
-            <div className="alert alert-primary">
-              Or sign up using third-party services
-            </div>
-            <FacebookLogin
-              appId="357227691853030"
-              render={renderProps => (
-                <button style={{ marginRight: 15 }} className="btn btn-primary" onClick={renderProps.onClick}>Facebook</button>
-              )}
-              fields="name,email,picture"
-              callback={this.responseFacebook}
-              cssClass="btn btn-outline-primary"
-            />
-            <GoogleLogin 
-              clientId="211745097439-8b8fuh65gi3gdce8012prv50l61gm82a.apps.googleusercontent.com"
-              render={renderProps => (
-                <button className="btn btn-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}>Google</button>
-              )}
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
-              className="btn btn-outline-danger"
-            />
-          </div>
-        </div>
+          
       </div>
     );
   }

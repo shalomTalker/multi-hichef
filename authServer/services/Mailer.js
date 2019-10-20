@@ -1,18 +1,14 @@
 
-const keys = require('../config/keys');
+const { sendGridKey } = require('../config/keys');
 
 const nodemailer = require('nodemailer');
+const nodemailerSendgrid = require('nodemailer-sendgrid');
 
-const transport = nodemailer.createTransport({
-    service: 'Sendgrid',
-    auth: {
-        user: 'hichef-prod',
-        pass: 'AaSsDdFf1234'
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
+const transport = nodemailer.createTransport(
+    nodemailerSendgrid({
+        apiKey: sendGridKey
+    })
+);
 
 module.exports = {
     sendEmail(from, to, subject, html) {
@@ -24,4 +20,3 @@ module.exports = {
         });
     }
 }
-
