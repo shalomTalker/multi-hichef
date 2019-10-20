@@ -15,6 +15,58 @@ services:
     volumes: 
       - /app/node_modules
       - ./authServer:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+
+  profile:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./profileServer 
+    volumes: 
+      - /app/node_modules
+      - ./profileServer:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+
+  core:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./coreServer 
+    volumes: 
+      - /app/node_modules
+      - ./coreServer:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+
+  filter:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./filterServer 
+    volumes: 
+      - /app/node_modules
+      - ./filterServer:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+
+  tuning:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./tuningServer 
+    volumes: 
+      - /app/node_modules
+      - ./tuningServer:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+
+  retuning:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./retuningServer 
+    volumes: 
+      - /app/node_modules
+      - ./retuningServer:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
       
   client:
     build: 

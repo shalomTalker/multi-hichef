@@ -1,0 +1,22 @@
+{
+  "name": "coreserver",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "circular-json": "^0.5.9",
+    "express": "~4.16.1",
+    "express-http-proxy": "^1.5.1",
+    "express-promise-router": "^3.0.3",
+    "http-errors": "^1.7.3",
+    "joi": "^14.3.1",
+    "mongoose": "^5.7.1",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

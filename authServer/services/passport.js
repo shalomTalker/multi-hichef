@@ -8,6 +8,7 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 const config = require('../config/keys');
 const User = require('../models/User');
 
+
 const cookieExtractor = req => {
   let token = null;
   if (req && req.cookies) {
@@ -30,7 +31,6 @@ passport.use(new JwtStrategy({
     if (!user) {
       return done(null, false);
     }
-
     // Otherwise, return the user
     req.user = user;
     done(null, user);
@@ -50,22 +50,21 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
     // 1) When registering for the first time
     // 2) When linking account to the existing one
 
-    // Should have full user profile over here
-    console.log('profile', profile);
-    console.log('accessToken', accessToken);
-    console.log('refreshToken', refreshToken);
-
     if (req.user) {
       // We're already logged in, time for linking account!
       // Add Google's data to an existing account
-      req.user.methods.push('google')
-      req.user.google = {
-        id: profile.id,
-        email: profile.emails[0].value
+      if (!req.user.methods.includes('google')) {
+        req.user.methods.push('google')
+        req.user.google = {
+          id: profile.id,
+          email: profile.emails[0].value,
+          name: profile.name.givenName
+        }
+        await req.user.save()
       }
-      await req.user.save()
       return done(null, req.user);
     } else {
+
       // We're in the account creation process
       let existingUser = await User.findOne({ "google.id": profile.id });
       if (existingUser) {
@@ -79,7 +78,9 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
         existingUser.methods.push('google')
         existingUser.google = {
           id: profile.id,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          name: profile.name.givenName
+
         }
         await existingUser.save()
         return done(null, existingUser);
@@ -89,15 +90,15 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
         methods: ['google'],
         google: {
           id: profile.id,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          name: profile.name.givenName
         }
       });
-
       await newUser.save();
       done(null, newUser);
     }
   } catch (error) {
-    done(error, false, error.message);
+    done(error, false);
   }
 }));
 
@@ -114,12 +115,17 @@ passport.use('facebookToken', new FacebookTokenStrategy({
     if (req.user) {
       // We're already logged in, time for linking account!
       // Add Facebook's data to an existing account
-      req.user.methods.push('facebook')
-      req.user.facebook = {
-        id: profile.id,
-        email: profile.emails[0].value
+      if (!req.user.methods.includes('facebook')) {
+
+        req.user.methods.push('facebook')
+        req.user.facebook = {
+          id: profile.id,
+          email: profile.emails[0].value,
+          name: profile.name.givenName
+        }
+        await req.user.save();
       }
-      await req.user.save();
+
       return done(null, req.user);
     } else {
       // We're in the account creation process
@@ -128,6 +134,7 @@ passport.use('facebookToken', new FacebookTokenStrategy({
         return done(null, existingUser);
       }
 
+
       // Check if we have someone with the same email
       existingUser = await User.findOne({ "local.email": profile.emails[0].value })
       if (existingUser) {
@@ -135,7 +142,8 @@ passport.use('facebookToken', new FacebookTokenStrategy({
         existingUser.methods.push('facebook')
         existingUser.facebook = {
           id: profile.id,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          name: profile.name.givenName
         }
         await existingUser.save()
         return done(null, existingUser);
@@ -145,7 +153,8 @@ passport.use('facebookToken', new FacebookTokenStrategy({
         methods: ['facebook'],
         facebook: {
           id: profile.id,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          name: profile.name.givenName
         }
       });
 
@@ -153,7 +162,7 @@ passport.use('facebookToken', new FacebookTokenStrategy({
       done(null, newUser);
     }
   } catch (error) {
-    done(error, false, error.message);
+    done(error, false);
   }
 }));
 
@@ -167,7 +176,7 @@ passport.use(new LocalStrategy({
 
     // If not, handle it
     if (!user) {
-      return done(null, false);
+      return done(Err(403, 'This email does not exist'), false);
     }
 
     // Check if the password is correct
@@ -175,11 +184,7 @@ passport.use(new LocalStrategy({
 
     // If not, handle it
     if (!isMatch) {
-      return done(null, false);
-    }
-    // Make sure the user has been verified
-    if (!user.local.isVerified) {
-      return done(null,false);
+      return done(Err(403, 'This paasword does not match'), false);
     }
     // Otherwise, return the user
     done(null, user);

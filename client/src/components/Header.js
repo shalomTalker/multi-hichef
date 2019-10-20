@@ -31,10 +31,10 @@ class Header extends Component {
                             </li>] : null}
 
                         {this.props.isAuth ?
-                            [<li className="nav-item">
+                            [<li className="nav-item" key="dashboard">
                                 <Link className="nav-link" to="/dashboard">Dashboard</Link>
                             </li>,
-                            <li className="nav-item">
+                            <li className="nav-item" key="signout">
                                 <Link className="nav-link" to="/signout" onClick={this.signOut}>Sign Out</Link>
                             </li>] : null}
                     </ul>
